@@ -1,5 +1,5 @@
 const dataHelper = require('../utils/helper');
-
+const {validationResult} = require('express-validator');
 exports.getBooks = (req, res, next) => {
   console.log('GET books');
 
@@ -17,7 +17,15 @@ exports.putBooks = (req, res, next) => {
 };
 
 exports.postBooks = (req, res, next) => {
-  console.log('POST books ');
+  const errors =  validationResult(req) ;
+   
+  if(!errors.isEmpty()){
+      return res.status(422).json({
+          message:'validation failed on the requested resource',
+          errors:errors.array()
+      });
+  }
+  
   const title = req.body.title;
   const price = req.body.price;
   const description = req.body.description;
@@ -30,9 +38,9 @@ exports.postBooks = (req, res, next) => {
   };
 
   dataHelper.getBookListFromJsonFile((books) => {
-      console.log(books);
+//      console.log(books);
     const bookIndex = books.findIndex((book) => book.title === title);
-    console.log(bookIndex);
+  //  console.log(bookIndex);
     if (bookIndex != -1) {
       return res.status(500).json({
         message: 'Book Information already exists',
