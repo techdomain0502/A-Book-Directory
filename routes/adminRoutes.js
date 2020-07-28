@@ -4,6 +4,7 @@ const router = express.Router();
 const adminController = require('../controllers/adminController');
 
 router.get('/', adminController.getBooks);
+router.get('/:bookId',adminController.getBookById);
 router.delete('/:bookId', adminController.deleteBooks);
 router.post(
   '/',
