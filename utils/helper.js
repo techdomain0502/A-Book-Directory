@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const rootDir = path.dirname(process.mainModule.filename);
 const jsonFilePath = path.join(rootDir,"bookdata","books.json");
+exports.rootDir = rootDir;
 exports.getBookListFromJsonFile = (cb)=>{
    fs.readFile(jsonFilePath,(err,bookData)=>{
       if(err){

@@ -11,8 +11,10 @@ router.post(
   [
     body('title').trim().isLength({ min: 5 }),
     body('description').trim().isLength({ min: 5 }),
-    body('price').trim().isAlphanumeric(),
+    body('price').trim().isAlphanumeric()
   ],
+  
+   
   adminController.postBooks
 );
 router.put('/:bookId', adminController.putBooks);
